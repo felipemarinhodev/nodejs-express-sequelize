@@ -1,5 +1,5 @@
 const express = require('express');
-const pessoas = require('./pessoaRoute.js');
+const pessoas = require('./pessoasRoute.js');
 
 module.exports = app => {
   app.use(
