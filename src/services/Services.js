@@ -13,7 +13,7 @@ class Services {
     return dataSource[this.model].findByPk(id);
   }
 
-  async criarRegistro(dadosDoRegistro) {
+  async criaRegistro(dadosDoRegistro) {
     return dataSource[this.model].create(dadosDoRegistro);
   }
 
