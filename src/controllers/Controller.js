@@ -1,3 +1,5 @@
+const converteIds = require('../utils/conversorDeStringHelper');
+
 class Controller {
   constructor(entidadeServices) {
     this.entidadeServices = entidadeServices;
@@ -24,10 +26,10 @@ class Controller {
 
   async pegaUm(req, res) {
     const { ...params } = req.params;
-    console.log('params', params);
+    const where = converteIds(params);
     try {
-      // const umRegistro = await this.entidadeServices.pegaUmRegistro(params);
-      // return res.status(200).json(umRegistro);
+      const umRegistro = await this.entidadeServices.pegaUmRegistro(where);
+      return res.status(200).json(umRegistro);
     } catch (error) {
       return res.status(500).json({ erro: error.message });
     }
