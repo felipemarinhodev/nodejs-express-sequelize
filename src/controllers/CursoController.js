@@ -1,4 +1,4 @@
-const Op = require('sequelize');
+const { Op } = require('sequelize');
 const CursosServices = require('../services/CursoServices');
 const Controller = require('./Controller');
 
@@ -10,6 +10,8 @@ class CursoController extends Controller {
 
   async pegaCursos(req, res) {
     const { data_inicial, data_final } = req.query;
+    console.log('data_inicial', data_inicial);
+    console.log('Op.gte', Op.gte);
 
     const where = {};
 
@@ -20,6 +22,14 @@ class CursoController extends Controller {
     // se existir data final, item
     data_final ? where.data_inicio[Op.lte] = data_final : null;
 
+    console.log('where', where);
+
+    try {
+      const listaCursos = await cursoServices.pegaTodosOsRegistros(where);
+      return res.status(200).json(listaCursos);
+    } catch (error) {
+      return res.status(500).json({ erro: error.message });
+    }
   }
 }
 
