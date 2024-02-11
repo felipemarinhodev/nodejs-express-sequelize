@@ -48,8 +48,10 @@ class Controller {
   async atualiza(req, res) {
     const { id } = req.params;
     const dadosAtualizado = req.body;
+
+    const where = converteIds(id);
     try {
-      const foiAtualizado = await this.entidadeServices.atualizaRegistro(dadosAtualizado, Number(id));
+      const foiAtualizado = await this.entidadeServices.atualizaRegistro(dadosAtualizado, where);
       if (!foiAtualizado) {
         return res.status(400).json({ message: 'registro não foi atualizado' });
       }
@@ -61,9 +63,10 @@ class Controller {
 
   async exclui(req, res) {
     const { id } = req.params;
+    const where = converteIds(id);
 
     try {
-      await this.entidadeServices.excluiRegistro(Number(id));
+      await this.entidadeServices.excluiRegistro(where);
       return res.status(200).json({ mensagem: `id ${id} deletado.` });
     } catch (error) {
       return res.status(500).json({ erro: error.message });
