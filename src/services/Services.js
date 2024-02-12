@@ -29,13 +29,13 @@ class Services {
     return dataSource[this.model].create(dadosDoRegistro);
   }
 
-  async atualizaRegistro(dadosAtualizados, where, transaction = {}) {
-    const listaDeRegistroAtualizado = dataSource[this.model]
+  async atualizaRegistro(dadosAtualizados, where, transacao = {}) {
+    const listaDeRegistroAtualizado = await dataSource[this.model]
       .update(
         dadosAtualizados,
         {
           where: { ...where },
-          transaction
+          transaction: transacao
         }
       );
     if (listaDeRegistroAtualizado[0] === 0) {
@@ -48,5 +48,6 @@ class Services {
     return dataSource[this.model].destroy({ where: { ...where } });
   }
 }
+
 
 module.exports = Services;
