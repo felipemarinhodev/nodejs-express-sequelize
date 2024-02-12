@@ -29,9 +29,15 @@ class Services {
     return dataSource[this.model].create(dadosDoRegistro);
   }
 
-  async atualizaRegistro(dadosAtualizados, where) {
-    const listaDeRegistroAtualizado = dataSource[this.model].update(
-      dadosAtualizados, { where: { ...where } });
+  async atualizaRegistro(dadosAtualizados, where, transaction = {}) {
+    const listaDeRegistroAtualizado = dataSource[this.model]
+      .update(
+        dadosAtualizados,
+        {
+          where: { ...where },
+          transaction
+        }
+      );
     if (listaDeRegistroAtualizado[0] === 0) {
       return false;
     }
